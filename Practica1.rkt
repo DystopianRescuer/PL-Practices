@@ -153,7 +153,22 @@
         (zigzag-sum (rest (rest lst))))))
 
 ; ----------------- Ejercicio 9 -------------------------------
+(define (generate-brackets n)
+  (aux n n ""))
 
+(define (aux left right current)
+  (if (and (= left 0) (= right 0))
+      (list current)
+      (append
+       (if (> left 0)
+           (aux (- left 1) right (string-append current "("))
+           '())
+       (if (> right left)
+           (aux left (- right 1) (string-append current ")"))
+           '())
+      )
+  )
+)
 
 ; ----------------- Ejercicio 10 ---------------------------
 ; count-steps-to-one: Una función recursiva recibe un n ́umero entero n y devuelve el n ́umero de pasos necesarios para reducir el n ́umero dado a 1 siguiendo estas reglas:
