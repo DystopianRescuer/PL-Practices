@@ -1,5 +1,6 @@
 #lang racket
 
+; --------------- implementaciones vistas en clase ---------------
 (define (my-map f lst)
     (match lst
         ['() lst]
@@ -12,10 +13,13 @@
             (if (f x)
                 (cons x (my-filter f xs))
                 (my-filter f xs ))]))
+; ----------------------------------------------------------------
 
-(define (a-binario lst) (my-map reverse (my-map binario-de lst)))
 
-; Toma un numero y te regresa una lista de sus digitos en binario, pero en little-endian
-(define (binario-de n) (if (equal? n 0)
-    empty
-    (cons (modulo n 2) (binario-de (quotient n 2)))))
+; Ejercicio 1
+; Toma la lista, convierte a binario cada elemento, y pasa de little-endian a big-endian
+(define (a-binario lst) (my-map reverse (my-map (letrec
+    ([binario-de (lambda (n) (if (equal? n 0)
+        empty
+        (cons (modulo n 2) (binario-de (quotient n 2)))))])
+    (binario-de lst)))))
