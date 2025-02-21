@@ -36,7 +36,7 @@
             (voltear (quotient num 10) (+ (* rev 10) (remainder num 10) ) )
          )
        )
-       )
+      )
     )
    lst)
 )
@@ -110,3 +110,12 @@
                [nuevo-turno (modulo (+ (juego-turno juego) 1) (length nuevas-manos))])
           (juego (juego-mazo juego) carta nuevas-manos nuevo-turno))
         (error "Carta invalida."))))
+
+
+
+; ----------------- Ejercicio 7 ---------------------
+(define (verificar-ganador juego)
+    (letrec
+        ([verificar-recursivo (lambda (manos n) (if (empty? manos) #f (if (empty? (first manos)) n (verificar-recursivo (rest manos) (+ n 1)))))]
+        [manos (juego-manos juego)])
+    (verificar-recursivo manos 0)))
